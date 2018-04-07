@@ -15,7 +15,7 @@ import org.apache.shiro.biz.spring.ShiroFilterProxyFactoryBean;
 import org.apache.shiro.biz.web.filter.authc.LoginListener;
 import org.apache.shiro.biz.web.filter.authc.LogoutListener;
 import org.apache.shiro.mgt.SecurityManager;
-import org.apache.shiro.spring.boot.cache.ShiroEhCacheAutoConfiguration;
+import org.apache.shiro.spring.boot.cache.ShiroEhCacheConfiguration;
 import org.apache.shiro.spring.config.web.autoconfigure.ShiroWebAutoConfiguration;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.spring.web.config.DefaultShiroFilterChainDefinition;
@@ -229,7 +229,7 @@ import org.springframework.util.ObjectUtils;
  */
 @Configuration
 @AutoConfigureBefore(ShiroWebAutoConfiguration.class)
-@AutoConfigureAfter(ShiroEhCacheAutoConfiguration.class)
+@AutoConfigureAfter(ShiroEhCacheConfiguration.class)
 @ConditionalOnProperty(prefix = ShiroLdapProperties.PREFIX, value = "enabled", havingValue = "true")
 @EnableConfigurationProperties({ ShiroLdapProperties.class })
 public class ShiroLdapAutoConfiguration implements ApplicationContextAware {
