@@ -15,11 +15,7 @@
  */
 package org.apache.shiro.spring.boot;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import org.apache.shiro.cache.Cache;
-import org.apache.shiro.cache.CacheManager;
+import org.apache.directory.ldap.client.api.LdapConnectionConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(ShiroLdapProperties.PREFIX)
@@ -28,33 +24,32 @@ public class ShiroLdapProperties {
 	public static final String PREFIX = "shiro.ldap";
 	
 	/**
-	 * Enable Shiro.
+	 * Enable Shiro Ldap.
 	 */
 	private boolean enabled = false;
 	
-	private boolean cachingEnabled;
+	 // --- private members ----
+    /** A flag indicating if we are using SSL or not, default value is false */
+    private boolean useSsl = false;
 
-	/**
-	 * The cache used by this realm to store AuthorizationInfo instances associated
-	 * with individual Subject principals.
-	 */
-	private boolean authorizationCachingEnabled;
-	private String authorizationCacheName;
+    /** The selected LDAP port */
+    private int ldapPort;
 
-	private boolean authenticationCachingEnabled;
-	private String authenticationCacheName;
+    /** the remote LDAP host */
+    private String ldapHost;
 
-	/** 登录地址：会话不存在时访问的地址 */
-	private String loginUrl;
-	/** 重定向地址：会话注销后的重定向地址 */
-    private String redirectUrl;
-	/** 系统主页：登录成功后跳转路径 */
-    private String successUrl;
-    /** 异常页面：无权限时的跳转路径 */
-    private String unauthorizedUrl;
-	
-	private Map<String /* pattert */, String /* Chain names */> filterChainDefinitionMap = new LinkedHashMap<String, String>();
-	
+    /** a valid Dn to authenticate the user */
+    private String name;
+
+    /** user's credentials ( current implementation supports password only); it must be a non-null value */
+    private String credentials;
+
+    /** an array of cipher suites which are enabled, if set, will be used while initializing the SSL context */
+    private String[] enabledCipherSuites;
+
+    /** name of the protocol used for creating SSL context, default value is "TLS" */
+    private String sslProtocol = LdapConnectionConfig.DEFAULT_SSL_PROTOCOL;
+
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -62,173 +57,62 @@ public class ShiroLdapProperties {
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
-	
-	public String getAuthorizationCacheName() {
-        return authorizationCacheName;
-    }
 
-    public void setAuthorizationCacheName(String authorizationCacheName) {
-        this.authorizationCacheName = authorizationCacheName;
-    }
-
-    /**
-     * Returns {@code true} if authorization caching should be utilized if a {@link CacheManager} has been
-     * {@link #setCacheManager(org.apache.shiro.cache.CacheManager) configured}, {@code false} otherwise.
-     * <p/>
-     * The default value is {@code true}.
-     *
-     * @return {@code true} if authorization caching should be utilized, {@code false} otherwise.
-     */
-    public boolean isAuthorizationCachingEnabled() {
-        return isCachingEnabled() && authorizationCachingEnabled;
-    }
-
-    /**
-     * Sets whether or not authorization caching should be utilized if a {@link CacheManager} has been
-     * {@link #setCacheManager(org.apache.shiro.cache.CacheManager) configured}, {@code false} otherwise.
-     * <p/>
-     * The default value is {@code true}.
-     *
-     * @param authenticationCachingEnabled the value to set
-     */
-    public void setAuthorizationCachingEnabled(boolean authenticationCachingEnabled) {
-        this.authorizationCachingEnabled = authenticationCachingEnabled;
-        if (authenticationCachingEnabled) {
-            setCachingEnabled(true);
-        }
-    }
-	    
-	/**
-     * Returns the name of a {@link Cache} to lookup from any available {@link #getCacheManager() cacheManager} if
-     * a cache is not explicitly configured via {@link #setAuthenticationCache(org.apache.shiro.cache.Cache)}.
-     * <p/>
-     * This name will only be used to look up a cache if authentication caching is
-     * {@link #isAuthenticationCachingEnabled() enabled}.
-     * <p/>
-     * <b>WARNING:</b> Only set this property if safe caching conditions apply, as documented at the top
-     * of this page in the class-level JavaDoc.
-     *
-     * @return the name of a {@link Cache} to lookup from any available {@link #getCacheManager() cacheManager} if
-     *         a cache is not explicitly configured via {@link #setAuthenticationCache(org.apache.shiro.cache.Cache)}.
-     * @see #isAuthenticationCachingEnabled()
-     * @since 1.2
-     */
-    public String getAuthenticationCacheName() {
-        return this.authenticationCacheName;
-    }
-
-    /**
-     * Sets the name of a {@link Cache} to lookup from any available {@link #getCacheManager() cacheManager} if
-     * a cache is not explicitly configured via {@link #setAuthenticationCache(org.apache.shiro.cache.Cache)}.
-     * <p/>
-     * This name will only be used to look up a cache if authentication caching is
-     * {@link #isAuthenticationCachingEnabled() enabled}.
-     *
-     * @param authenticationCacheName the name of a {@link Cache} to lookup from any available
-     *                                {@link #getCacheManager() cacheManager} if a cache is not explicitly configured
-     *                                via {@link #setAuthenticationCache(org.apache.shiro.cache.Cache)}.
-     * @see #isAuthenticationCachingEnabled()
-     * @since 1.2
-     */
-    public void setAuthenticationCacheName(String authenticationCacheName) {
-        this.authenticationCacheName = authenticationCacheName;
-    }
-
-    /**
-     * Returns {@code true} if authentication caching should be utilized if a {@link CacheManager} has been
-     * {@link #setCacheManager(org.apache.shiro.cache.CacheManager) configured}, {@code false} otherwise.
-     * <p/>
-     * The default value is {@code true}.
-     *
-     * @return {@code true} if authentication caching should be utilized, {@code false} otherwise.
-     */
-    public boolean isAuthenticationCachingEnabled() {
-        return this.authenticationCachingEnabled && isCachingEnabled();
-    }
-
-    /**
-     * Sets whether or not authentication caching should be utilized if a {@link CacheManager} has been
-     * {@link #setCacheManager(org.apache.shiro.cache.CacheManager) configured}, {@code false} otherwise.
-     * <p/>
-     * The default value is {@code false} to retain backwards compatibility with Shiro 1.1 and earlier.
-     * <p/>
-     * <b>WARNING:</b> Only set this property to {@code true} if safe caching conditions apply, as documented at the top
-     * of this page in the class-level JavaDoc.
-     *
-     * @param authenticationCachingEnabled the value to set
-     */
-    public void setAuthenticationCachingEnabled(boolean authenticationCachingEnabled) {
-        this.authenticationCachingEnabled = authenticationCachingEnabled;
-        if (authenticationCachingEnabled) {
-            setCachingEnabled(true);
-        }
-    }
-    
-    /**
-     * Returns {@code true} if caching should be used if a {@link CacheManager} has been
-     * {@link #setCacheManager(org.apache.shiro.cache.CacheManager) configured}, {@code false} otherwise.
-     * <p/>
-     * The default value is {@code true} since the large majority of Realms will benefit from caching if a CacheManager
-     * has been configured.  However, memory-only realms should set this value to {@code false} since they would
-     * manage account data in memory already lookups would already be as efficient as possible.
-     *
-     * @return {@code true} if caching will be globally enabled if a {@link CacheManager} has been
-     *         configured, {@code false} otherwise
-     */
-    public boolean isCachingEnabled() {
-        return cachingEnabled;
-    }
-
-    /**
-     * Sets whether or not caching should be used if a {@link CacheManager} has been
-     * {@link #setCacheManager(org.apache.shiro.cache.CacheManager) configured}.
-     *
-     * @param cachingEnabled whether or not to globally enable caching for this realm.
-     */
-    public void setCachingEnabled(boolean cachingEnabled) {
-        this.cachingEnabled = cachingEnabled;
-    }
-
-	public String getLoginUrl() {
-		return loginUrl;
+	public boolean isUseSsl() {
+		return useSsl;
 	}
 
-	public void setLoginUrl(String loginUrl) {
-		this.loginUrl = loginUrl;
+	public void setUseSsl(boolean useSsl) {
+		this.useSsl = useSsl;
 	}
 
-	public String getRedirectUrl() {
-		return redirectUrl;
+	public int getLdapPort() {
+		return ldapPort;
 	}
 
-	public void setRedirectUrl(String redirectUrl) {
-		this.redirectUrl = redirectUrl;
+	public void setLdapPort(int ldapPort) {
+		this.ldapPort = ldapPort;
 	}
 
-	public String getSuccessUrl() {
-		return successUrl;
+	public String getLdapHost() {
+		return ldapHost;
 	}
 
-	public void setSuccessUrl(String successUrl) {
-		this.successUrl = successUrl;
+	public void setLdapHost(String ldapHost) {
+		this.ldapHost = ldapHost;
 	}
 
-	public String getUnauthorizedUrl() {
-		return unauthorizedUrl;
+	public String getName() {
+		return name;
 	}
 
-	public void setUnauthorizedUrl(String unauthorizedUrl) {
-		this.unauthorizedUrl = unauthorizedUrl;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Map<String, String> getFilterChainDefinitionMap() {
-		return filterChainDefinitionMap;
+	public String getCredentials() {
+		return credentials;
 	}
 
-	public void setFilterChainDefinitionMap(Map<String, String> filterChainDefinitionMap) {
-		this.filterChainDefinitionMap = filterChainDefinitionMap;
+	public void setCredentials(String credentials) {
+		this.credentials = credentials;
+	}
+
+	public String[] getEnabledCipherSuites() {
+		return enabledCipherSuites;
+	}
+
+	public void setEnabledCipherSuites(String[] enabledCipherSuites) {
+		this.enabledCipherSuites = enabledCipherSuites;
+	}
+
+	public String getSslProtocol() {
+		return sslProtocol;
+	}
+
+	public void setSslProtocol(String sslProtocol) {
+		this.sslProtocol = sslProtocol;
 	}
     
-
 }
 

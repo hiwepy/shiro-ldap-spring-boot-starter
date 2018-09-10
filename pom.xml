@@ -363,9 +363,8 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<commons-codec.version>1.11</commons-codec.version>
  		<commons-lang3.version>3.5</commons-lang3.version>
- 		<commons-io.version>2.6</commons-io.version>
+ 		<shared-ldap.version>1.0.0-M13</shared-ldap.version>
  		<maven.version>3.0</maven.version>
        	<maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
         <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
@@ -430,18 +429,20 @@
 		</dependency>
 		
 		<dependency>
-		    <groupId>commons-codec</groupId>
-		    <artifactId>commons-codec</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.directory.shared/shared-ldap-client-api -->
 		<dependency>
-		    <groupId>commons-io</groupId>
-		    <artifactId>commons-io</artifactId>
-		    <version>${commons-io.version}</version>
+		    <groupId>org.apache.directory.shared</groupId>
+		    <artifactId>shared-ldap-client-api</artifactId>
+		    <version>${shared-ldap.version}</version>
 		</dependency>
+		<!-- <dependency>
+		    <groupId>org.apache.directory.api</groupId>
+		    <artifactId>api-all</artifactId>
+		    <version>2.0.0.AM1</version>
+		</dependency> -->
 		
 		<!-- https://github.com/vindell/spring-boot-starter-shiro-biz -->
 		<dependency>

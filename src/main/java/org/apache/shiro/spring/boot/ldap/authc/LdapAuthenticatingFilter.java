@@ -13,24 +13,16 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.apache.shiro.spring.boot.ldap.filter;
+package org.apache.shiro.spring.boot.ldap.authc;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import org.apache.shiro.biz.web.filter.authc.AbstractTrustableAuthenticatingFilter;
 
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.web.filter.authc.AuthenticatingFilter;
+/**
+ * Ldap 认证 (authentication)过滤器
+ * @author ： <a href="https://github.com/vindell">vindell</a>
+ */
+public class LdapAuthenticatingFilter extends AbstractTrustableAuthenticatingFilter {
 
-public class LdapAuthenticatingFilter extends AuthenticatingFilter{
-
-	@Override
-	protected AuthenticationToken createToken(ServletRequest request, ServletResponse response) throws Exception {
-		return null;
-	}
-
-	@Override
-	protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws Exception {
-		return false;
-	}
+	
 	
 }
