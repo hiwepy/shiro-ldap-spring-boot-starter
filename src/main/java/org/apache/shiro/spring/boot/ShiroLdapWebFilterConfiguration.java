@@ -206,13 +206,15 @@ import org.springframework.context.annotation.Configuration;
  * http://www.jianshu.com/p/bf79fdab9c19
  */
 @Configuration
-@AutoConfigureBefore(ShiroWebAutoConfiguration.class)
-@AutoConfigureAfter(ShiroEhCache2CacheConfiguration.class)
+@AutoConfigureBefore( name = {
+	"org.apache.shiro.spring.config.web.autoconfigure.ShiroWebFilterConfiguration",  // shiro-spring-boot-web-starter
+	"org.apache.shiro.spring.boot.ShiroBizWebFilterConfiguration" // spring-boot-starter-shiro-biz
+})
 @ConditionalOnProperty(prefix = ShiroLdapProperties.PREFIX, value = "enabled", havingValue = "true")
 @EnableConfigurationProperties({ ShiroLdapProperties.class })
-public class ShiroLdapAutoConfiguration implements ApplicationContextAware {
+public class ShiroLdapWebFilterConfiguration implements ApplicationContextAware {
 
-	private static final Logger LOG = LoggerFactory.getLogger(ShiroLdapAutoConfiguration.class);
+	private static final Logger LOG = LoggerFactory.getLogger(ShiroLdapWebFilterConfiguration.class);
 	private ApplicationContext applicationContext;
 	
 	@Autowired
