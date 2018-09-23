@@ -86,13 +86,13 @@ public class LdapPrincipalRepository implements ShiroPrincipalRepository<LdapPri
   
             search.close();  
   
+            return new SimpleAuthenticationInfo(principal, ldapToken, "kisso");
         } catch (Exception e) {  
-            e.printStackTrace();  
             throw new IncorrectLdapException("LDAP connection search failure", e);  
-        }  
-  
-        LdapConnectionUtils.closeConnection(connection);  
-		return new SimpleAuthenticationInfo(principal, ldapToken, "kisso");
+        } finally {
+        	LdapConnectionUtils.closeConnection(connection);  
+		} 
+        
 	}
 
 	@Override
