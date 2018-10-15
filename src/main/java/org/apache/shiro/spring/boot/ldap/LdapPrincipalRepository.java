@@ -16,7 +16,6 @@
 package org.apache.shiro.spring.boot.ldap;
 
 import java.util.Collection;
-import java.util.Set;
 
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.shared.ldap.model.cursor.EntryCursor;
@@ -28,7 +27,7 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.biz.authz.principal.ShiroPrincipal;
-import org.apache.shiro.biz.authz.principal.ShiroPrincipalRepository;
+import org.apache.shiro.biz.authz.principal.ShiroPrincipalRepositoryImpl;
 import org.apache.shiro.biz.utils.StringUtils;
 import org.apache.shiro.spring.boot.ShiroLdapProperties;
 import org.apache.shiro.spring.boot.ldap.exception.IncorrectLdapException;
@@ -41,7 +40,7 @@ import com.google.common.collect.Sets;
  * Kisso Token Principal Repository
  * @author 		： <a href="https://github.com/vindell">vindell</a>
  */
-public class LdapPrincipalRepository implements ShiroPrincipalRepository<LdapPrincipal> {
+public class LdapPrincipalRepository extends ShiroPrincipalRepositoryImpl {
 	
 	private static final String USER_GROUP = "dc=users,DC=ITS";  
 	private ShiroLdapProperties properties;
@@ -95,37 +94,6 @@ public class LdapPrincipalRepository implements ShiroPrincipalRepository<LdapPri
         
 	}
 
-	@Override
-	public Set<String> getRoles(LdapPrincipal principal) {
-		return principal.getRoles();
-	}
-
-	@Override
-	public Set<String> getRoles(Set<LdapPrincipal> principals) {
-		Set<String> sets = Sets.newHashSet();
-		for (ShiroPrincipal principal : principals) {
-			sets.addAll(principal.getRoles());
-		}
-		return sets;
-	}
-
-	@Override
-	public Set<String> getPermissions(LdapPrincipal principal) {
-		return Sets.newHashSet(principal.getPerms());
-	}
-
-	@Override
-	public Set<String> getPermissions(Set<LdapPrincipal> principals) {
-		Set<String> sets = Sets.newHashSet();
-		for (ShiroPrincipal principal : principals) {
-			sets.addAll(principal.getPerms());
-		}
-		return sets;
-	}
 	
-	@Override
-	public void doLock(LdapPrincipal principal) {
-		// do nothing
-	}
 	
 }
