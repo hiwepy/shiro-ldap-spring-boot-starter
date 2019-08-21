@@ -1,4 +1,4 @@
-# spring-boot-starter-shiro-biz
+# spring-boot-starter-shiro-ldap
 shiro starter for spring boot
 
 ### 说明
@@ -14,7 +14,7 @@ shiro starter for spring boot
 ``` xml
 <dependency>
 	<groupId>${project.groupId}</groupId>
-	<artifactId>spring-boot-starter-shiro-biz</artifactId>
+	<artifactId>spring-boot-starter-shiro-ldap</artifactId>
 	<version>${project.version}</version>
 </dependency>
 ```
