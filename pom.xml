@@ -446,7 +446,7 @@
 		    <version>2.0.0.AM1</version>
 		</dependency> -->
 		
-		<!-- https://github.com/hiwepy/spring-boot-starter-shiro-biz -->
+		<!-- https://github.com/hiwepy/shiro-biz-spring-boot-starter -->
 		<dependency>
 			<groupId>com.github.hiwepy</groupId>
 			<artifactId>shiro-biz-spring-boot-starter</artifactId>
