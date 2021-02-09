@@ -16,6 +16,8 @@
 package org.apache.shiro.spring.boot.ldap;
 
 import java.util.Collection;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.directory.ldap.client.api.LdapConnection;
 import org.apache.directory.shared.ldap.model.cursor.EntryCursor;
@@ -34,6 +36,7 @@ import org.apache.shiro.spring.boot.ldap.exception.IncorrectLdapException;
 import org.apache.shiro.spring.boot.ldap.token.LdapLoginToken;
 import org.apache.shiro.spring.boot.ldap.utils.LdapConnectionUtils;
 
+import com.github.hiwepy.jwt.JwtPayload.RolePair;
 import com.google.common.collect.Sets;
 
 /**
@@ -70,8 +73,12 @@ public class LdapPrincipalRepository extends ShiroPrincipalRepositoryImpl {
                     	principal.setUserid(attribute.getString());
                     } else if ("ukey".equalsIgnoreCase(key)) {  
                         principal.setUserkey(attribute.getString());
-                    } else if ("roles".equalsIgnoreCase(key)) {  
-                        principal.setRoles(Sets.newHashSet(StringUtils.tokenizeToStringArray(attribute.getString())));
+                    } else if ("roles".equalsIgnoreCase(key)) {
+                    	principal.setRoles(Stream.of(StringUtils.tokenizeToStringArray(attribute.getString())).map(key1 -> {
+                    		RolePair pair = new RolePair();
+                    		pair.setKey(key1);
+                    		return pair;
+                    	}).collect(Collectors.toList()));
                     } else if ("perms".equalsIgnoreCase(key)) {  
                     	principal.setPerms(Sets.newHashSet(StringUtils.tokenizeToStringArray(attribute.getString())));
                     } else if ("sn".equalsIgnoreCase(key)) {  
