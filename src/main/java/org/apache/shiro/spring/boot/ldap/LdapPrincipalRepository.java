@@ -36,7 +36,7 @@ import org.apache.shiro.spring.boot.ldap.exception.IncorrectLdapException;
 import org.apache.shiro.spring.boot.ldap.token.LdapLoginToken;
 import org.apache.shiro.spring.boot.ldap.utils.LdapConnectionUtils;
 
-import io.github.hiwepy.jwt.JwtPayload.RolePair;
+import io.github.easy4j.jwt.JwtPayload.RolePair;
 import com.google.common.collect.Sets;
 
 /**
