@@ -13,20 +13,26 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
-package org.apache.shiro.spring.boot.ldap.realm;
+package org.apache.shiro.spring.boot.ldap.exception;
 
-import org.apache.shiro.biz.realm.AbstractAuthorizingRealm;
-import org.apache.shiro.spring.boot.ldap.token.LdapLoginToken;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * Ldap Stateful AuthorizingRealm
+ * Unit tests for {{ @link IncorrectLdapException }}.
+ *
  * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
  */
-public class LdapStatefulAuthorizingRealm extends AbstractAuthorizingRealm {
+@DisplayName("IncorrectLdapException Tests")
+class IncorrectLdapExceptionTest {
 
-	@Override
-	public Class<?> getAuthenticationTokenClass() {
-		return LdapLoginToken.class;// 此Realm只支持LdapToken
-	}
-
+    @Test
+    @DisplayName("Instance can be created via constructor")
+    void testInstantiation() {
+        IncorrectLdapException instance = new IncorrectLdapException();
+        assertThat(instance).isNotNull();
+    }
 }
