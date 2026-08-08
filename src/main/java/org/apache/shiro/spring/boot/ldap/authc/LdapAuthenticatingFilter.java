@@ -19,7 +19,7 @@ import org.apache.shiro.biz.web.filter.authc.AbstractTrustableAuthenticatingFilt
 
 /**
  * Ldap 认证 (authentication)过滤器
- * @author ： <a href="https://github.com/hiwepy">hiwepy</a>
+ * @author [@Loong Wan](https://github.com/loong10k)
  */
 public class LdapAuthenticatingFilter extends AbstractTrustableAuthenticatingFilter {
 
