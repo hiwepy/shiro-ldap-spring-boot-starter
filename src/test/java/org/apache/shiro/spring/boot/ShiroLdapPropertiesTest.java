@@ -1,18 +1,3 @@
-/*
- * Copyright (c) 2018, hiwepy (https://github.com/hiwepy).
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- */
 package org.apache.shiro.spring.boot;
 
 import org.junit.jupiter.api.DisplayName;
@@ -20,154 +5,93 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-/**
- * Unit tests for {{ @link ShiroLdapProperties }}.
- *
- * <p>Verifies default values, getters/setters and POJO contract.</p>
- *
- * @author [@Loong Wan](https://github.com/loong10k)
- * @since 1.0.0
- */
 @DisplayName("ShiroLdapProperties Tests")
 class ShiroLdapPropertiesTest {
+
     @Test
-    @DisplayName("Default constructor creates non-null instance")
-    void testDefaultInstance() {
+    @DisplayName("Default values are correct")
+    void testDefaults() {
         ShiroLdapProperties props = new ShiroLdapProperties();
-        assertThat(props).isNotNull();
+        assertThat(props.isEnabled()).isFalse();
+        assertThat(props.isUseSsl()).isFalse();
+        assertThat(props.getLdapPort()).isZero();
+        assertThat(props.getLdapHost()).isNull();
+        assertThat(props.getName()).isNull();
+        assertThat(props.getCredentials()).isNull();
+        assertThat(props.getEnabledCipherSuites()).isNull();
+        assertThat(props.getSslProtocol()).isNotNull();
     }
 
     @Test
-    @DisplayName("Field 'enabled' can be set and read")
-    void testEnabledField() {
-        ShiroLdapProperties props = new ShiroLdapProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = ShiroLdapProperties.class.getDeclaredField("enabled");
-            f.setAccessible(true);
-            f.set(props, true);
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
-    }
-
-    @Test
-    @DisplayName("Field 'useSsl' can be set and read")
-    void testUseSslField() {
-        ShiroLdapProperties props = new ShiroLdapProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = ShiroLdapProperties.class.getDeclaredField("useSsl");
-            f.setAccessible(true);
-            f.set(props, true);
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
-    }
-
-    @Test
-    @DisplayName("Field 'ldapPort' can be set and read")
-    void testLdapPortField() {
-        ShiroLdapProperties props = new ShiroLdapProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = ShiroLdapProperties.class.getDeclaredField("ldapPort");
-            f.setAccessible(true);
-            f.set(props, 42);
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
-    }
-
-    @Test
-    @DisplayName("Field 'ldapHost' can be set and read")
-    void testLdapHostField() {
-        ShiroLdapProperties props = new ShiroLdapProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = ShiroLdapProperties.class.getDeclaredField("ldapHost");
-            f.setAccessible(true);
-            f.set(props, "test");
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
-    }
-
-    @Test
-    @DisplayName("Field 'name' can be set and read")
-    void testNameField() {
-        ShiroLdapProperties props = new ShiroLdapProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = ShiroLdapProperties.class.getDeclaredField("name");
-            f.setAccessible(true);
-            f.set(props, "test");
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
-    }
-
-    @Test
-    @DisplayName("Field 'credentials' can be set and read")
-    void testCredentialsField() {
-        ShiroLdapProperties props = new ShiroLdapProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = ShiroLdapProperties.class.getDeclaredField("credentials");
-            f.setAccessible(true);
-            f.set(props, "test");
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
-    }
-
-    @Test
-    @DisplayName("Field 'enabledCipherSuites' can be set and read")
-    void testEnabledCipherSuitesField() {
-        ShiroLdapProperties props = new ShiroLdapProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = ShiroLdapProperties.class.getDeclaredField("enabledCipherSuites");
-            f.setAccessible(true);
-            f.set(props, null);
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
-    }
-
-    @Test
-    @DisplayName("Field 'sslProtocol' can be set and read")
-    void testSslProtocolField() {
-        ShiroLdapProperties props = new ShiroLdapProperties();
-        // Use reflection to set private field (covers all fields including those without setters)
-        try {
-            java.lang.reflect.Field f = ShiroLdapProperties.class.getDeclaredField("sslProtocol");
-            f.setAccessible(true);
-            f.set(props, "test");
-            Object value = f.get(props);
-            assertThat(value).isNotNull();
-        } catch (Exception e) {
-            // Field may have a more complex type; skip silently
-        }
-    }
-
-    @Test
-    @DisplayName("Public constant 'PREFIX' has expected value")
+    @DisplayName("PREFIX constant has expected value")
     void testPREFIXConstant() {
         assertThat(ShiroLdapProperties.PREFIX).isEqualTo("shiro.ldap");
+    }
+
+    @Test
+    @DisplayName("enabled getter/setter")
+    void testEnabled() {
+        ShiroLdapProperties props = new ShiroLdapProperties();
+        props.setEnabled(true);
+        assertThat(props.isEnabled()).isTrue();
+        props.setEnabled(false);
+        assertThat(props.isEnabled()).isFalse();
+    }
+
+    @Test
+    @DisplayName("useSsl getter/setter")
+    void testUseSsl() {
+        ShiroLdapProperties props = new ShiroLdapProperties();
+        props.setUseSsl(true);
+        assertThat(props.isUseSsl()).isTrue();
+    }
+
+    @Test
+    @DisplayName("ldapPort getter/setter")
+    void testLdapPort() {
+        ShiroLdapProperties props = new ShiroLdapProperties();
+        props.setLdapPort(389);
+        assertThat(props.getLdapPort()).isEqualTo(389);
+    }
+
+    @Test
+    @DisplayName("ldapHost getter/setter")
+    void testLdapHost() {
+        ShiroLdapProperties props = new ShiroLdapProperties();
+        props.setLdapHost("ldap://localhost");
+        assertThat(props.getLdapHost()).isEqualTo("ldap://localhost");
+    }
+
+    @Test
+    @DisplayName("name getter/setter")
+    void testName() {
+        ShiroLdapProperties props = new ShiroLdapProperties();
+        props.setName("cn=admin");
+        assertThat(props.getName()).isEqualTo("cn=admin");
+    }
+
+    @Test
+    @DisplayName("credentials getter/setter")
+    void testCredentials() {
+        ShiroLdapProperties props = new ShiroLdapProperties();
+        props.setCredentials("secret");
+        assertThat(props.getCredentials()).isEqualTo("secret");
+    }
+
+    @Test
+    @DisplayName("enabledCipherSuites getter/setter")
+    void testEnabledCipherSuites() {
+        ShiroLdapProperties props = new ShiroLdapProperties();
+        String[] suites = {"TLS_RSA_WITH_AES_128_CBC_SHA"};
+        props.setEnabledCipherSuites(suites);
+        assertThat(props.getEnabledCipherSuites()).isEqualTo(suites);
+    }
+
+    @Test
+    @DisplayName("sslProtocol getter/setter")
+    void testSslProtocol() {
+        ShiroLdapProperties props = new ShiroLdapProperties();
+        props.setSslProtocol("SSLv3");
+        assertThat(props.getSslProtocol()).isEqualTo("SSLv3");
     }
 }

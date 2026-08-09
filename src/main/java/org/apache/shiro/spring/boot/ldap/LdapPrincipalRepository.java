@@ -30,7 +30,7 @@ import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.biz.authz.principal.ShiroPrincipal;
 import org.apache.shiro.biz.authz.principal.ShiroPrincipalRepositoryImpl;
-import org.apache.shiro.biz.utils.StringUtils;
+import org.apache.shiro.util.StringUtils;
 import org.apache.shiro.spring.boot.ShiroLdapProperties;
 import org.apache.shiro.spring.boot.ldap.exception.IncorrectLdapException;
 import org.apache.shiro.spring.boot.ldap.token.LdapLoginToken;
@@ -74,13 +74,13 @@ public class LdapPrincipalRepository extends ShiroPrincipalRepositoryImpl {
                     } else if ("ukey".equalsIgnoreCase(key)) {  
                         principal.setUserkey(attribute.getString());
                     } else if ("roles".equalsIgnoreCase(key)) {
-                    	principal.setRoles(Stream.of(StringUtils.tokenizeToStringArray(attribute.getString())).map(key1 -> {
+                    	principal.setRoles(Stream.of(StringUtils.tokenizeToStringArray(attribute.getString(), ",; \t\n")).map(key1 -> {
                     		RolePair pair = new RolePair();
                     		pair.setKey(key1);
                     		return pair;
                     	}).collect(Collectors.toList()));
                     } else if ("perms".equalsIgnoreCase(key)) {  
-                    	principal.setPerms(Sets.newHashSet(StringUtils.tokenizeToStringArray(attribute.getString())));
+                    	principal.setPerms(Sets.newHashSet(StringUtils.tokenizeToStringArray(attribute.getString(), ",; \t\n")));
                     } else if ("sn".equalsIgnoreCase(key)) {  
                         principal.setUsername(attribute.getString());
                     } else if ("cn".equalsIgnoreCase(key)) {  
