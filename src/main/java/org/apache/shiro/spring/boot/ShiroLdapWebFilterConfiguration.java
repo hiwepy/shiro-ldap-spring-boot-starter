@@ -212,6 +212,13 @@ import org.springframework.context.annotation.Configuration;
 })
 @ConditionalOnProperty(prefix = ShiroLdapProperties.PREFIX, value = "enabled", havingValue = "true")
 @EnableConfigurationProperties({ ShiroLdapProperties.class })
+/**
+ * Filter configuration for ShiroLdapWeb authentication.
+ * <p>Registers authentication filters and security filter chains.</p>
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 public class ShiroLdapWebFilterConfiguration implements ApplicationContextAware {
 
 	private static final Logger LOG = LoggerFactory.getLogger(ShiroLdapWebFilterConfiguration.class);

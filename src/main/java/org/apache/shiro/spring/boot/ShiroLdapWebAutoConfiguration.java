@@ -16,6 +16,13 @@ import org.springframework.context.annotation.Configuration;
 })
 @ConditionalOnProperty(prefix = ShiroLdapProperties.PREFIX, value = "enabled", havingValue = "true")
 @EnableConfigurationProperties({ ShiroLdapProperties.class })
+/**
+ * Auto-configuration for ShiroLdapWeb integration.
+ * <p>Registers the necessary beans when the feature is enabled.</p>
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 public class ShiroLdapWebAutoConfiguration extends AbstractShiroWebConfiguration implements ApplicationContextAware {
 
 	private ApplicationContext applicationContext;

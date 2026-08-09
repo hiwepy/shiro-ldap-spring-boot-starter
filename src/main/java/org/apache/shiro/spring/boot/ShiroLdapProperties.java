@@ -19,6 +19,14 @@ import org.apache.directory.ldap.client.api.LdapConnectionConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(ShiroLdapProperties.PREFIX)
+/**
+ * Configuration properties.
+ * <p>Binds to the application property prefix and provides
+ * customizable settings.</p>
+ *
+ * @author [@Loong Wan](https://github.com/loong10k)
+ * @since 1.0.0
+ */
 public class ShiroLdapProperties {
 
 	public static final String PREFIX = "shiro.ldap";
