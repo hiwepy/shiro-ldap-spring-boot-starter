@@ -20,7 +20,7 @@ import org.apache.shiro.spring.boot.ldap.token.LdapLoginToken;
 
 /**
  * Ldap Stateful AuthorizingRealm
- * @author [@Loong Wan](https://github.com/loong10k)
+ * @author <a href="https://github.com/loong10k">Loong Wan</a>
  */
 public class LdapStatefulAuthorizingRealm extends AbstractAuthorizingRealm {
 
