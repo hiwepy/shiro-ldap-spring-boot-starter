@@ -42,6 +42,7 @@ import com.google.common.collect.Sets;
 /**
  * Kisso Token Principal Repository
  * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
  */
 public class LdapPrincipalRepository extends ShiroPrincipalRepositoryImpl {
 	
@@ -49,6 +50,13 @@ public class LdapPrincipalRepository extends ShiroPrincipalRepositoryImpl {
 	private ShiroLdapProperties properties;
 	
 	@Override
+	/**
+	 * get Authentication Info.
+	 *
+	 * @param token the token
+	 * @return the result
+	 * @throws AuthenticationException if an error occurs
+	 */
 	public AuthenticationInfo getAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 		
 		LdapLoginToken ldapToken = (LdapLoginToken) token;

@@ -228,6 +228,12 @@ public class ShiroLdapWebFilterConfiguration implements ApplicationContextAware 
 	private ShiroLdapProperties properties;
 	
 	@Bean
+	/**
+	 * delegating Filter Proxy.
+	 *
+	 * @param shiroFilter the shiro filter
+	 * @return the result
+	 */
 	public DelegatingFilterProxyRegistrationBean delegatingFilterProxy(AbstractShiroFilter shiroFilter){
 	    //FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
 		DelegatingFilterProxyRegistrationBean filterRegistrationBean = new DelegatingFilterProxyRegistrationBean("shiroFilter");
@@ -238,10 +244,21 @@ public class ShiroLdapWebFilterConfiguration implements ApplicationContextAware 
 	}
 	
 	@Override
+	/**
+	 * Sets the application context.
+	 *
+	 * @param applicationContext the application context
+	 * @throws BeansException if an error occurs
+	 */
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		this.applicationContext = applicationContext;
 	}
 
+	/**
+	 * Returns the application context.
+	 *
+	 * @return the application context
+	 */
 	public ApplicationContext getApplicationContext() {
 		return applicationContext;
 	}

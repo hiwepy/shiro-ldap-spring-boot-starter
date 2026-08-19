@@ -22,9 +22,19 @@ import org.apache.shiro.spring.boot.ldap.exception.LdapConnectionException;
 /**
  * TODO
  * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
  */
 public class LdapConnectionUtils {
 
+	/**
+	 * open Connection.
+	 *
+	 * @param ldapHost the ldap host
+	 * @param ldapPort the ldap port
+	 * @param name the name
+	 * @param credentials the credentials
+	 * @return the result
+	 */
 	public static LdapConnection openConnection(String ldapHost, int ldapPort, String name, String credentials) {
 		LdapConnection connection = new LdapNetworkConnection(ldapHost, ldapPort);
 		try {
@@ -35,6 +45,11 @@ public class LdapConnectionUtils {
 		return connection;
 	}
 
+	/**
+	 * close Connection.
+	 *
+	 * @param connection the connection
+	 */
 	public static void closeConnection(LdapConnection connection) {
 		try {
 			connection.unBind();

@@ -58,66 +58,146 @@ public class ShiroLdapProperties {
     /** name of the protocol used for creating SSL context, default value is "TLS" */
     private String sslProtocol = LdapConnectionConfig.DEFAULT_SSL_PROTOCOL;
 
+	/**
+	 * Returns the enabled.
+	 *
+	 * @return the enabled
+	 */
 	public boolean isEnabled() {
 		return enabled;
 	}
 
+	/**
+	 * Sets the enabled.
+	 *
+	 * @param enabled the enabled
+	 */
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
 
+	/**
+	 * Returns the use ssl.
+	 *
+	 * @return the use ssl
+	 */
 	public boolean isUseSsl() {
 		return useSsl;
 	}
 
+	/**
+	 * Sets the use ssl.
+	 *
+	 * @param useSsl the use ssl
+	 */
 	public void setUseSsl(boolean useSsl) {
 		this.useSsl = useSsl;
 	}
 
+	/**
+	 * Returns the ldap port.
+	 *
+	 * @return the ldap port
+	 */
 	public int getLdapPort() {
 		return ldapPort;
 	}
 
+	/**
+	 * Sets the ldap port.
+	 *
+	 * @param ldapPort the ldap port
+	 */
 	public void setLdapPort(int ldapPort) {
 		this.ldapPort = ldapPort;
 	}
 
+	/**
+	 * Returns the ldap host.
+	 *
+	 * @return the ldap host
+	 */
 	public String getLdapHost() {
 		return ldapHost;
 	}
 
+	/**
+	 * Sets the ldap host.
+	 *
+	 * @param ldapHost the ldap host
+	 */
 	public void setLdapHost(String ldapHost) {
 		this.ldapHost = ldapHost;
 	}
 
+	/**
+	 * Returns the name.
+	 *
+	 * @return the name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Returns the credentials.
+	 *
+	 * @return the credentials
+	 */
 	public String getCredentials() {
 		return credentials;
 	}
 
+	/**
+	 * Sets the credentials.
+	 *
+	 * @param credentials the credentials
+	 */
 	public void setCredentials(String credentials) {
 		this.credentials = credentials;
 	}
 
+	/**
+	 * Returns the enabled cipher suites.
+	 *
+	 * @return the enabled cipher suites
+	 */
 	public String[] getEnabledCipherSuites() {
 		return enabledCipherSuites;
 	}
 
+	/**
+	 * Sets the enabled cipher suites.
+	 *
+	 * @param enabledCipherSuites the enabled cipher suites
+	 */
 	public void setEnabledCipherSuites(String[] enabledCipherSuites) {
 		this.enabledCipherSuites = enabledCipherSuites;
 	}
 
+	/**
+	 * Returns the ssl protocol.
+	 *
+	 * @return the ssl protocol
+	 */
 	public String getSslProtocol() {
 		return sslProtocol;
 	}
 
+	/**
+	 * Sets the ssl protocol.
+	 *
+	 * @param sslProtocol the ssl protocol
+	 */
 	public void setSslProtocol(String sslProtocol) {
 		this.sslProtocol = sslProtocol;
 	}

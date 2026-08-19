@@ -20,6 +20,7 @@ import org.apache.shiro.biz.authc.token.DefaultAuthenticationToken;
 /**
  * Ldap Login Token
  * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
  */
 @SuppressWarnings("serial")
 public class LdapLoginToken extends DefaultAuthenticationToken  {

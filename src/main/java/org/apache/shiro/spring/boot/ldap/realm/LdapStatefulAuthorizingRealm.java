@@ -21,10 +21,16 @@ import org.apache.shiro.spring.boot.ldap.token.LdapLoginToken;
 /**
  * Ldap Stateful AuthorizingRealm
  * @author <a href="https://github.com/loong10k">Loong Wan</a>
+ * @since 1.0.0
  */
 public class LdapStatefulAuthorizingRealm extends AbstractAuthorizingRealm {
 
 	@Override
+	/**
+	 * Returns the authentication token class.
+	 *
+	 * @return the authentication token class
+	 */
 	public Class<?> getAuthenticationTokenClass() {
 		return LdapLoginToken.class;// 此Realm只支持LdapToken
 	}
